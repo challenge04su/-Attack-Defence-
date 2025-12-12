@@ -23,11 +23,16 @@ void printChoice()
 	cout << "선택할 번호를 입력해주세요. : ";
 }
 
+
+
 int main()
 {
 	//string monster_kind = { "Gobline", "Orc", "Dragon" };
 	int viewChoice = 0;
 	string player;
+	int level=1;
+	int attack = 5;
+	int hp = 10;
 
 	cout << "플레이어 이름을 입력하세요. : ";
 	getline(cin, player);
@@ -44,7 +49,7 @@ int main()
 		switch (viewChoice)
 		{
 			case 1 :
-				cout << "1" << endl;
+				cout << "현재 Level : " << level << ", 공격력 : " << attack << ", 체력 : " << hp << endl;
 				break;
 			case 2 :
 				cout << "2" << endl;
