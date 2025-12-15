@@ -1,71 +1,88 @@
 # include <iostream>
 #include <string>
+#include "Player.h"
+#include "Monster.h"
+#include "Gobline.h"
 
 using namespace std;
 
-void printChoice()
+void printMenu()
 {
-	cout << "아래의 [ 선택창 ]에서 원하는 번호를 입력해주세요!" << endl;
-	cout << endl;
-	cout << "-------------------------------------------------------" << endl;
 	cout << "[ 선택창 ]" << endl;
-	cout << "1. 나의 상태창 보기" << endl;
-	cout << "2. Gobline과 대결하러가기!" << endl;
-	cout << "   공격력 : " << endl;  //<-몬스터 관련 변수 들어가야함.
-	cout << "3. Orc와 대결하러가기!" << endl;
-	cout << "   공격력 : " << endl;
-	cout << "4. Dragon과 대결하러가기!" << endl;
-	cout << "   공격력 : " << endl;
-	cout << "5. [ Attack & Defence ] 종료하기" << endl;
+	cout << "1. 나의 스탯창 보기" << endl;
+	cout << "2. Gobline과 대결하러가기" << endl;
+	cout << "   공격력 : 1 | HP : 5      * 대결에서 우승 시 HP +5!" << endl;
+	cout << "3. Orc와 대결하러가기" << endl;
+	cout << "   공격력 : 5 | HP : 10     * 대결에서 우승 시 공격력 +5!" << endl;
+	cout << "4. Dragon과 대결하러가기" << endl;
+	cout << "   공격력 : 10 | HP : 20    * 대결에서 우승 시 Level UP!" << endl;
+	cout << "5. [Attack&Defence] 종료하기" << endl;
 	cout << "* 몬스터와 대결 시 몬스터가 먼저 공격합니다." << endl;
-	cout << "-------------------------------------------------------" << endl;
-
-	cout << "선택할 번호를 입력해주세요. : ";
 }
-
-
 
 int main()
 {
-	//string monster_kind = { "Gobline", "Orc", "Dragon" };
-	int viewChoice = 0;
-	string player;
-	int level=1;
-	int attack = 5;
-	int hp = 10;
+	string playerName;
+	string monsterName;
+	int menuChoice =0;
+
+	Player* player = nullptr;
+	Monster* monster = nullptr;
 
 	cout << "플레이어 이름을 입력하세요. : ";
-	getline(cin, player);
+	cin >> playerName;
+
+	cout << "안녕하세요 " << playerName << "님! 이곳은 [Attack&Defence]입니다!" << endl;
 	cout << endl;
 
-	cout << "안녕하세요 " << player << "님! 이곳은 [ Attack & Defence ] 입니다!" << endl;
-	cout << endl;
-	while(viewChoice != 5)
-	{ 
-		printChoice();
+	while (menuChoice != 5)
+	{
+		printMenu();
+		cout << "선택할 번호를 적어주세요. : ";
+		cin >> menuChoice;
+		cout << endl;
 
-		cin >> viewChoice;
-
-		switch (viewChoice)
+		switch (menuChoice)
 		{
-			case 1 :
-				cout << "현재 Level : " << level << ", 공격력 : " << attack << ", 체력 : " << hp << endl;
-				break;
-			case 2 :
-				cout << "2" << endl;
-				break;
-			case 3:
-				cout << "3" << endl;
-				break;
-			case 4:
-				cout << "4" << endl;
-				break;
-			case 5 :
-				cout << "게임 종료" << endl;
-				break;
-			default :
-				cout << "해당 번호는 [ 선택창 ]에 없습니다." << endl;
+		case 1 :
+			player->printStatus();
+			cout << endl;
+			break;
+		case 2 :
+			monsterName = "Gobline";
+			monster = new Gobline(monsterName);
+			break;
+		case 3 :
+			cout << "3" << endl;
+			break;
+		case 4:
+			cout << "4" << endl;
+			break;
+		case 5 :
+			cout << "[Attack&Defence]를 종료합니다." << endl;
+			break;
+		default:
+			cout << "잘못된 입력입니다." << endl;
 		}
-
 	}
+	while (player->getHP() > 0 && monster->getHP() > 0)
+	{
+		monster->attack(player);
+		if (player->getHP() < 1)
+		{
+			break;
+		}
+		player->attack(monster);
+		if (monster->getHP() < 1)
+		{
+			if (monsterName == "Gobline")
+			{
+				player->setHP(player->getHP() + monster->getreward());
+				cout << player->getplayerName() << "님의 HP가 " << monster->getreward() << "만큼 증가했습니다." << endl;
+				cout << "[ Level : " << player->getlevel() << " | 공격력 : " << player->getpower() << " | HP : " << player->getHP() << " ]" << endl;
+			}
+		}
+	}
+	delete player;
+	return 0;
 }

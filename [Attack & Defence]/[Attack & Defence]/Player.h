@@ -4,11 +4,30 @@
 
 using namespace std;
 
+class Monster;
+
 class Player
 {
-public : 
-	Player(string player)
+public :
+	Player(string playerName);
 
-		virtual void attack(Monster* monster) = 0;
+	void attack(Monster* monster);
 
+	void printStatus();
+
+	string getplayerName();
+	int getHP();
+	int getpower();
+	int getlevel();
+
+	void setplayerName(string playerName);
+	bool setHP(int HP);
+	void setpower(int power);
+	void setlevel(int level);
+
+protected :
+	string playerName;
+	int HP;
+	int power;
+	int level;
 };
