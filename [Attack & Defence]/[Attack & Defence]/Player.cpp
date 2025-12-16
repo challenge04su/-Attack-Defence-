@@ -4,14 +4,14 @@
 
 using namespace std;
 
-Player::Player(string playerName) : playerName(playerName), HP(10), power(5), level(1) {}
+Player::Player(const string& playerName) : playerName(playerName), HP(10), power(5), level(1) {}
 
-string Player::getplayerName() { return playerName; }
+const string& Player::getplayerName() const { return playerName; }
 int Player::getHP() { return HP; }
 int Player::getpower() { return power; }
 int Player::getlevel() { return level; }
 
-void Player::setplayerName(string playerName)
+void Player::setplayerName(const string& playerName)
 {
 	this->playerName = playerName;
 }
@@ -39,7 +39,10 @@ void Player::setlevel(int level)
 
 void Player :: printStatus()
 {
+	cout << "-----------------------------------------------------" << endl;
+	cout << "<1>" << endl;
 	cout << "현재 Level : " << level << " | " << "현재 HP : " << HP << " | " << "현재 공격력 : " << power << endl;
+	cout << "-----------------------------------------------------" << endl;
 }
 
 void Player::attack(Monster* monster)

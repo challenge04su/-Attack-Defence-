@@ -36,6 +36,7 @@ void fight(Player* player, Monster* monster)
 				player->setHP(player->getHP() + monster->getreward());
 				cout << player->getplayerName() << "님의 HP가 " << monster->getreward() << "만큼 증가했습니다." << endl;
 				cout << "[ Level : " << player->getlevel() << " | 공격력 : " << player->getpower() << " | HP : " << player->getHP() << " ]" << endl;
+				cout << "-----------------------------------------------------" << endl;
 				cout << endl;
 			}
 			break;
@@ -48,14 +49,15 @@ int main()
 	string monsterName;
 	int menuChoice =0;
 
-	Player* player = new Player(playerName);
-	Monster* monster = nullptr;
-
 	cout << "플레이어 이름을 입력하세요. : ";
-	cin >> playerName;
+	//cin >> playerName;
+	getline(cin, playerName);
 
 	cout << "안녕하세요 " << playerName << "님! 이곳은 [Attack&Defence]입니다!" << endl;
 	cout << endl;
+
+	Player* player = new Player(playerName);
+	Monster* monster = nullptr;
 
 	while (menuChoice != 5)
 	{
@@ -71,7 +73,7 @@ int main()
 			cout << endl;
 			break;
 		case 2 :
-			monsterName = "Gobline";
+			//monsterName = "Gobline";
 			//playerName = player->getplayerName();
 			monster = new Gobline(monsterName);
 			fight(player, monster);

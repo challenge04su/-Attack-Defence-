@@ -4,9 +4,9 @@
 
 using namespace std;
 
-Gobline::Gobline(string monsterName) : Monster(monsterName)
+Gobline::Gobline(string monsterName) : Monster("Gobline")
 {
-	monsterName = "Gobline";
+	//monsterName = "Gobline";
 	HP = 5;
 	power = 1;
 	reward = 5;
@@ -15,6 +15,8 @@ Gobline::Gobline(string monsterName) : Monster(monsterName)
 void Gobline::attack(Player* player)
 {
 	cout << endl;
+	cout << "-----------------------------------------------------" << endl;
+	cout << "<2>" << endl;
 	cout << monsterName << "이 [Attack&Defence]에 나타났습니다." << endl;
 	cout << monsterName << "이 " << power << "만큼 공격합니다." << endl;
 

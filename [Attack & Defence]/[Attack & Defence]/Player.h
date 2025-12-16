@@ -9,18 +9,18 @@ class Monster;
 class Player
 {
 public :
-	Player(string playerName);
+	Player(const string& playerName);
 
 	void attack(Monster* monster);
 
 	void printStatus();
 
-	string getplayerName();
+	const string& getplayerName() const;
 	int getHP();
 	int getpower();
 	int getlevel();
 
-	void setplayerName(string playerName);
+	void setplayerName(const string& playerName);
 	bool setHP(int HP);
 	void setpower(int power);
 	void setlevel(int level);
