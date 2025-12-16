@@ -3,6 +3,8 @@
 #include "Player.h"
 #include "Monster.h"
 #include "Gobline.h"
+#include "Orc.h"
+#include "Dragon.h"
 
 using namespace std;
 
@@ -39,10 +41,28 @@ void fight(Player* player, Monster* monster)
 				cout << "-----------------------------------------------------" << endl;
 				cout << endl;
 			}
+			else if (monster->getmonsterName() == "Orc")
+			{
+				player->setpower(player->getpower() + monster->getreward());
+				cout << player->getplayerName() << "님의 공격력이 " << monster->getreward() << "만큼 증가했습니다." << endl;
+				cout << "[ Level : " << player->getlevel() << " | 공격력 : " << player->getpower() << " | HP : " << player->getHP() << " ]" << endl;
+				cout << "-----------------------------------------------------" << endl;
+				cout << endl;
+			}
+			else
+			{
+				player->setlevel(player->getlevel() + monster->getreward());
+				cout << player->getplayerName() << "님의 Level이 " << monster->getreward() << "만큼 증가했습니다." << endl;
+				cout << "[ Level : " << player->getlevel() << " | 공격력 : " << player->getpower() << " | HP : " << player->getHP() << " ]" << endl;
+				cout << "-----------------------------------------------------" << endl;
+				cout << endl;
+			}
 			break;
 		}
+		
 	}
 }
+
 int main()
 {
 	string playerName;
@@ -50,7 +70,6 @@ int main()
 	int menuChoice =0;
 
 	cout << "플레이어 이름을 입력하세요. : ";
-	//cin >> playerName;
 	getline(cin, playerName);
 
 	cout << "안녕하세요 " << playerName << "님! 이곳은 [Attack&Defence]입니다!" << endl;
@@ -59,9 +78,11 @@ int main()
 	Player* player = new Player(playerName);
 	Monster* monster = nullptr;
 
-	while (menuChoice != 5)
+	bool winGame = true;
+	while (winGame)
 	{
 		printMenu();
+		cout << endl;
 		cout << "선택할 번호를 적어주세요. : ";
 		cin >> menuChoice;
 		cout << endl;
@@ -73,19 +94,35 @@ int main()
 			cout << endl;
 			break;
 		case 2 :
-			//monsterName = "Gobline";
-			//playerName = player->getplayerName();
 			monster = new Gobline(monsterName);
 			fight(player, monster);
+
+			if (player->getHP() < 1)
+			{
+				winGame = false;
+			}
 			break;
 		case 3 :
-			cout << "3" << endl;
+			monster = new Orc(monsterName);
+			fight(player, monster);
+
+			if (player->getHP() < 1)
+			{
+				winGame = false;
+			}
 			break;
 		case 4:
-			cout << "4" << endl;
+			monster = new Dragon(monsterName);
+			fight(player, monster);
+
+			if (player->getHP() < 1)
+			{
+				winGame = false;
+			}
 			break;
 		case 5 :
 			cout << "[Attack&Defence]를 종료합니다." << endl;
+			winGame = false;
 			break;
 		default:
 			cout << "잘못된 입력입니다." << endl;

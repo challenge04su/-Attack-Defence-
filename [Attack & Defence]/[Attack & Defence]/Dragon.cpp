@@ -1,23 +1,24 @@
-#include "Gobline.h"
+#include "Dragon.h"
 #include "Player.h"
 #include <iostream>
 
 using namespace std;
 
-Gobline::Gobline(string monsterName) : Monster("Gobline")
+Dragon::Dragon(string monsterName) : Monster("Dragon")
 {
-	HP = 5;
-	power = 1;
-	reward = 5;
+	HP = 20;
+	power = 10;
+	reward = 1;
 
 	cout << "-----------------------------------------------------" << endl;
-	cout << "<2>" << endl;
-	cout << "Gobline이 [Attack&Defence]에 나타났습니다." << endl;
+	cout << "<4>" << endl;
+	cout << "Dragon이 [Attack&Defence]에 나타났습니다." << endl;
 }
 
-void Gobline::attack(Player* player)
+void Dragon::attack(Player* player)
 {
 	cout << endl;
+	
 	cout << monsterName << "이 " << power << "만큼 공격합니다." << endl;
 
 	bool isAlive = player->setHP(player->getHP() - power);
