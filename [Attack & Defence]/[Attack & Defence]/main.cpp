@@ -19,14 +19,36 @@ void printMenu()
 	cout << "5. [Attack&Defence] 종료하기" << endl;
 	cout << "* 몬스터와 대결 시 몬스터가 먼저 공격합니다." << endl;
 }
-
+void fight(Player* player, Monster* monster)
+{
+	while (player->getHP() > 0 && monster->getHP() > 0)
+	{
+		monster->attack(player);
+		if (player->getHP() < 1)
+		{
+			break;
+		}
+		player->attack(monster);
+		if (monster->getHP() < 1)
+		{
+			if (monster->getmonsterName() == "Gobline")
+			{
+				player->setHP(player->getHP() + monster->getreward());
+				cout << player->getplayerName() << "님의 HP가 " << monster->getreward() << "만큼 증가했습니다." << endl;
+				cout << "[ Level : " << player->getlevel() << " | 공격력 : " << player->getpower() << " | HP : " << player->getHP() << " ]" << endl;
+				cout << endl;
+			}
+			break;
+		}
+	}
+}
 int main()
 {
 	string playerName;
 	string monsterName;
 	int menuChoice =0;
 
-	Player* player = nullptr;
+	Player* player = new Player(playerName);
 	Monster* monster = nullptr;
 
 	cout << "플레이어 이름을 입력하세요. : ";
@@ -50,7 +72,9 @@ int main()
 			break;
 		case 2 :
 			monsterName = "Gobline";
+			//playerName = player->getplayerName();
 			monster = new Gobline(monsterName);
+			fight(player, monster);
 			break;
 		case 3 :
 			cout << "3" << endl;
@@ -65,24 +89,8 @@ int main()
 			cout << "잘못된 입력입니다." << endl;
 		}
 	}
-	while (player->getHP() > 0 && monster->getHP() > 0)
-	{
-		monster->attack(player);
-		if (player->getHP() < 1)
-		{
-			break;
-		}
-		player->attack(monster);
-		if (monster->getHP() < 1)
-		{
-			if (monsterName == "Gobline")
-			{
-				player->setHP(player->getHP() + monster->getreward());
-				cout << player->getplayerName() << "님의 HP가 " << monster->getreward() << "만큼 증가했습니다." << endl;
-				cout << "[ Level : " << player->getlevel() << " | 공격력 : " << player->getpower() << " | HP : " << player->getHP() << " ]" << endl;
-			}
-		}
-	}
+	
 	delete player;
+	delete monster;
 	return 0;
 }

@@ -6,6 +6,7 @@ using namespace std;
 
 Gobline::Gobline(string monsterName) : Monster(monsterName)
 {
+	monsterName = "Gobline";
 	HP = 5;
 	power = 1;
 	reward = 5;
@@ -14,8 +15,8 @@ Gobline::Gobline(string monsterName) : Monster(monsterName)
 void Gobline::attack(Player* player)
 {
 	cout << endl;
-	cout << "Gobline이 [Attack&Defence]에 나타났습니다." << endl;
-	cout << "Gobline이 " << power << "만큼 공격합니다." << endl;
+	cout << monsterName << "이 [Attack&Defence]에 나타났습니다." << endl;
+	cout << monsterName << "이 " << power << "만큼 공격합니다." << endl;
 
 	bool isAlive = player->setHP(player->getHP() - power);
 
